@@ -58,13 +58,13 @@ class FlutterBoost {
 
   static FlutterBoost get singleton => _instance;
 
-  static ContainerManagerState get containerManager =>
-      _instance.containerManagerKey.currentState;
-
   final GlobalKey<ContainerManagerState> containerManagerKey =
       GlobalKey<ContainerManagerState>();
   final ObserversHolder _observersHolder = ObserversHolder();
   final BoostChannel _boostChannel = BoostChannel();
+
+  static ContainerManagerState get containerManager =>
+      _instance.containerManagerKey.currentState;
 
   static void onPageStart() {
     WidgetsBinding.instance.addPostFrameCallback((Duration _) {
@@ -80,11 +80,7 @@ class FlutterBoost {
             pageInfo.containsKey('params') &&
             pageInfo.containsKey('uniqueId')) {
           ContainerCoordinator.singleton.nativeContainerDidShow(
-            pageInfo['name'] as String,
-            (pageInfo['params'] as Map<dynamic, dynamic>)
-                ?.cast<String, dynamic>(),
-            pageInfo['uniqueId'] as String,
-          );
+              pageInfo["name"], pageInfo["params"], pageInfo["uniqueId"]);
         }
       });
     });
